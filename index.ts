@@ -2,10 +2,12 @@ import express, { Request, Response } from "express";
 import { rateLimiter } from "./src/rateLimiter";
 
 const PORT = 3000;
-const app = express();
-app.use(rateLimiter(2, 5000));
+const WINDOW_SIZE = 5000;
+const REQUEST_LIMIT = 2;
 
-app.get("/", (req: Request, res: Response) => {
+const app = express();
+
+app.get("/", rateLimiter(REQUEST_LIMIT, WINDOW_SIZE), (req: Request, res: Response) => {
     res.json({ "data": "sent", "status": "200" })
 })
 
