@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { rateLimiter } from "./src/rateLimiter";
+import { redisClient } from "./src/services/redis";
 
 const PORT = 3000;
 const WINDOW_SIZE = 5000;

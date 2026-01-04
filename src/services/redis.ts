@@ -1,3 +1,4 @@
 import { RedisClient } from "bun";
 
-const client = new RedisClient()
+export const redisClient = new RedisClient("redis://localhost:6379");
+await redisClient.connect();
