@@ -12,5 +12,5 @@ app.get("/", rateLimiter(REQUEST_LIMIT, WINDOW_SIZE), (req: Request, res: Respon
 })
 
 app.listen(PORT, () => {
-    console.log(`Server running on localhost ${PORT}`)
+    console.log(`Server running on localhost:${PORT}`)
 })
