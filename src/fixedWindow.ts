@@ -1,24 +1,25 @@
 import { store } from "./store";
 
-export function allowRequest(
+export async function allowRequest(
     key: string,
     limit: number,
     windowSize: number
-): boolean {
+): Promise<boolean> {
     const now = Date.now();
-    const entry = store[key];
+    const entry = await store.get(key);
     // check if the request is new or the window got exired
     if (!entry || now > entry.expiresAt) {
-        store[key] = {
+        store.set(key, {
             count: 1,
             windowStart: now,
             expiresAt: now + windowSize
-        }
+        })
         return true;
     }
     // check if the request count is within the limit
     if (entry.count < limit) {
         entry.count += 1;
+        await store.set(key, entry)
         return true;
     }
     return false;

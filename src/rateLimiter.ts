@@ -2,9 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { allowRequest } from "./fixedWindow";
 
 export function rateLimiter(limit: number, windowSize: number) {
-    return (req: Request, res: Response, next: NextFunction) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
         const ip = req.ip || "unknown";
-        if (!allowRequest(ip, limit, windowSize)) {
+        const requestallowed = await allowRequest(ip, limit, windowSize)
+        if (!requestallowed) {
             res.status(429).send("Too many requests");
             return;
         }
