@@ -9,7 +9,7 @@ export const store: RedisStore = {
     },
 
     async set(key: string, value: RateLimiterEntry): Promise<void> {
-        redisClient.set(key, JSON.stringify(value))
+        await redisClient.set(key, JSON.stringify(value))
     },
     async del(key: string): Promise<void> {
         await redisClient.del(key)
