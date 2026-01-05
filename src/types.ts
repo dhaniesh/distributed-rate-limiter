@@ -17,4 +17,5 @@ export interface FixedWindowStore {
 
 export interface LeakyBucketStore {
     get(key: string): Promise<LeakyBucketEntry | null>
+    set(key:string, value: LeakyBucketEntry): Promise<void>
 }
