@@ -3,7 +3,7 @@ import { rateLimiter } from "./src/rateLimiter";
 import { initRedis } from "./src/services/redis";
 
 const PORT = 3000;
-const WINDOW_SIZE = 5000;
+export const WINDOW_SIZE = 5000;
 const REQUEST_LIMIT = 2;
 
 const app = express();
