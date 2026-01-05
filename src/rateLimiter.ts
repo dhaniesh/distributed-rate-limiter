@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { allowRequest } from "./fixedWindow";
+import { allowRequest } from "./services/fixedWindow/fixedWindow";
 
 export function rateLimiter(limit: number, windowSize: number) {
     return async (req: Request, res: Response, next: NextFunction) => {
