@@ -1,6 +1,6 @@
 import { store } from "./store";
 
-export async function allowRequest(
+export async function allowFixedRequest(
     key: string,
     limit: number,
     windowSize: number
