@@ -1,8 +1,8 @@
-import { RateLimiterEntry, RedisStore } from "../../types";
+import { RateLimiterEntry, FixedWindowStore } from "../../types";
 import { redisClient } from "../redis";
 import { WINDOW_SIZE } from "../../..";
 
-export const store: RedisStore = {
+export const store: FixedWindowStore = {
     async get(key: string): Promise<RateLimiterEntry | null> {
         const value = await redisClient.get(key);
         if (!value) return null

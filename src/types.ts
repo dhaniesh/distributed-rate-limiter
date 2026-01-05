@@ -4,7 +4,7 @@ export type RateLimiterEntry = {
     expiresAt: number;
 }
 
-export interface RedisStore {
+export interface FixedWindowStore {
     get(key: string): Promise<RateLimiterEntry | null>
     set(key: string, value: RateLimiterEntry): Promise<void>
     del(key: string): Promise<void>
