@@ -11,6 +11,7 @@ export type LeakyBucketEntry = {
 
 export type TokenBucketEntry = {
     level: number
+    lastRefill: number
 }
 
 export interface FixedWindowStore {
