@@ -25,6 +25,6 @@ export interface LeakyBucketStore {
 }
 
 export interface TokenBucketStore {
-    get(key: string): Promise<TokenBucketEntry | void>
+    get(key: string): Promise<TokenBucketEntry | null>
     set(key: string, value: TokenBucketEntry): Promise<void>
 }
