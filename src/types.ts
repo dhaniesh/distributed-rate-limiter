@@ -9,6 +9,10 @@ export type LeakyBucketEntry = {
     lastLeak: number
 }
 
+export type TokenBucketEntry = {
+    level: number
+}
+
 export interface FixedWindowStore {
     get(key: string): Promise<FixedWindowEntry | null>
     set(key: string, value: FixedWindowEntry): Promise<void>
