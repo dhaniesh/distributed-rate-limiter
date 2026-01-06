@@ -1,5 +1,7 @@
 import { store } from "./store";
-import { LEAKY_BUCKET_KEY, LEAK_RATE_PER_MS } from "./store";
+
+export const LEAKY_BUCKET_KEY = "LEAKY_BUCKET_KEY"
+export const LEAK_RATE_PER_MS = 1/1000;
 
 export async function allowLeakyRequest(limit: number): Promise<boolean> {
     const now = Date.now()
