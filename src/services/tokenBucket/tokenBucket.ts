@@ -4,13 +4,13 @@ const TOKEN_BUCKET_KEY = "TOKEN_BUCKET_KEY";
 const REFILL_RATE = 1 / 5000
 const CAPACITY = 5
 
-export async function allowTokenRequest(): Promise<boolean> {
+export async function allowTokenRequest(ip: string): Promise<boolean> {
     const now = Date.now()
-    const entry = await store.get(TOKEN_BUCKET_KEY)
+    const entry = await store.get(ip)
 
     // first requests comes in
     if (!entry) {
-        await store.set(TOKEN_BUCKET_KEY, {
+        await store.set(ip, {
             level: CAPACITY - 1,
             lastRefill: now
         })
@@ -23,7 +23,7 @@ export async function allowTokenRequest(): Promise<boolean> {
     const newLevel = Math.min(CAPACITY, refilled + entry.level)
 
     if (newLevel >= 1) {
-        await store.set(TOKEN_BUCKET_KEY, {
+        await store.set(ip, {
             level: newLevel - 1,
             lastRefill: now
         })
