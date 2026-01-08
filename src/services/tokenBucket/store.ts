@@ -10,6 +10,6 @@ export const store: TokenBucketStore = {
         return JSON.parse(value);
     },
     async set(key: string, value: TokenBucketEntry): Promise<void> {
-        await redisClient.set(key, JSON.stringify(value))
+        await redisClient.set(key, JSON.stringify(value), "EX", 3600)
     }
 }
