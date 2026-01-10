@@ -1,17 +1,18 @@
 import { store } from "./store";
 
-export const LEAKY_BUCKET_KEY = "LEAKY_BUCKET_KEY"
 export const LEAK_RATE_PER_MS = 1/1000;
 
-export async function allowLeakyRequest(limit: number): Promise<boolean> {
+export async function allowLeakyRequest(key: string, limit: number): Promise<boolean> {
     const now = Date.now()
-    const entry = await store.get(LEAKY_BUCKET_KEY)
+    const entry = await store.get(key)
+    // calculate expiration with 1 sec buffer
+    const expiration = limit / LEAK_RATE_PER_MS + 1000;
     // check if the request is new
     if (!entry) {
-        await store.set(LEAKY_BUCKET_KEY, {
+        await store.set(key, {
             lastLeak: now,
             level: 1
-        })
+        }, expiration)
         return true;
     }
     // calculate level
@@ -25,9 +26,9 @@ export async function allowLeakyRequest(limit: number): Promise<boolean> {
     }
 
     // if new level is within the limit, update store
-    await store.set(LEAKY_BUCKET_KEY, {
+    await store.set(key, {
         level: newLevel + 1,
         lastLeak: now
-    });
+    }, expiration);
     return true;
 }   

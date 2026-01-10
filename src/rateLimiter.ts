@@ -7,7 +7,7 @@ export function rateLimiter(limit: number, windowSize: number) {
     return async (req: Request, res: Response, next: NextFunction) => {
         const ip = req.ip || "unknown";
         // const requestallowed = await allowFixedRequest(ip, limit, windowSize)
-        // const requestallowed = await allowLeakyRequest(10)
+        // const requestallowed = await allowLeakyRequest(ip, 10)
         const requestallowed = await allowTokenRequest(ip)
         if (!requestallowed) {
             res.status(429).send("Too many requests");

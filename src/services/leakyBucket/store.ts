@@ -7,7 +7,7 @@ export const store: LeakyBucketStore = {
         if (!value) return null
         return JSON.parse(value)
     },
-    async set(key: string, value: LeakyBucketEntry): Promise<void> {
-        await redisClient.set(key, JSON.stringify(value))
+    async set(key: string, value: LeakyBucketEntry, expiration: number): Promise<void> {
+        await redisClient.set(key, JSON.stringify(value), "PX", expiration)
     }
 }
