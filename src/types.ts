@@ -16,7 +16,7 @@ export type TokenBucketEntry = {
 
 export interface FixedWindowStore {
     get(key: string): Promise<FixedWindowEntry | null>
-    set(key: string, value: FixedWindowEntry): Promise<void>
+    set(key: string, value: FixedWindowEntry, windowSize: number): Promise<void>
     del(key: string): Promise<void>
 }
 

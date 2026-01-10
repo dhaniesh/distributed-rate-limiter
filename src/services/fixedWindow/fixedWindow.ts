@@ -13,13 +13,13 @@ export async function allowFixedRequest(
             count: 1,
             windowStart: now,
             expiresAt: now + windowSize
-        })
+        }, windowSize)
         return true;
     }
     // check if the request count is within the limit
     if (entry.count < limit) {
         entry.count += 1;
-        await store.set(key, entry)
+        await store.set(key, entry, windowSize)
         return true;
     }
     return false;
